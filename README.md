@@ -61,6 +61,9 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Swager OPEN API
+You can go to Swagger API documentation with the link of format APP_HOST:APP_PORT/SWAGGER_ENDPOINT_PREFIX. Example: http://localhost:3000/api
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
