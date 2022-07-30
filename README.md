@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is simple REST API to handle the payment and we implement by using [Nest](https://github.com/nestjs/nest) framework. Right now we just implemented for bestpayments provider
 
 ## Installation
 
@@ -62,7 +62,7 @@ $ npm run test:cov
 ```
 
 ## Swager OPEN API
-You can go to Swagger API documentation with the link of format APP_HOST:APP_PORT/SWAGGER_ENDPOINT_PREFIX. Example: http://localhost:3000/api
+You can go to Swagger API documentation with the link of format APP_HOST:APP_PORT/SWAGGER_. Example: http://localhost:3000/api
 
 ## Support
 
@@ -70,9 +70,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Phong Ly](lyquocphong@gmail.com)
 
 ## License
 
