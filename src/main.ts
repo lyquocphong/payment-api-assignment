@@ -14,8 +14,8 @@ async function bootstrap() {
     //.addTag(process.env.SWAGGER_TAG)
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup(process.env.SWAGGER_ENDPOINT_PREFIX, app, document);
 
-  await app.listen(3000);
+  await app.listen(process.env.APP_PORT);
 }
 bootstrap();
