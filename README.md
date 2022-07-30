@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is simple REST API to handle the payment and we implement by using [Nest](https://github.com/nestjs/nest) framework. Right now we just implemented for bestpayments provider
 
 ## Installation
 
