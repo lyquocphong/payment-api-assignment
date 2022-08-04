@@ -69,11 +69,13 @@ You can go to Swagger API documentation with the link of format APP_HOST:APP_POR
 
 ## REST API design:
 
-POST payment/bestpayments/create
+### POST payment/bestpayments/create
 
-POST payment/bestpayments/verify
+### POST payment/bestpayments/verify
 
-GET payment/bestpayments/callback
+### POST payment/bestpayments/callback?checksum=xxxxxx
+
+Right now, this endpoint will check the checksum by compare it with hash value of BESTPAYMENT_MERCHANT_REFERENCE. It make it more secure
 
 Check the documentation in swagger to get more details
 
@@ -83,6 +85,7 @@ Check the documentation in swagger to get more details
 2. Need to add more tables for verifying more side effects like checking validity of payment provider or client exists or not
 3. Add test, right now the API is just fake, hard to test
 4. Need to add queue to recheck the payment status, because for some reason the webpack will lost
+5. Add docker-compose.yml to containerize the application
 
 ## Improvement
 There is some thing in API need to improve
@@ -127,9 +130,12 @@ paymentProviderId (Integer, FK => payment_provider.id)
 status (Int,FK => payment_status.id, not null)
 paymentReference (Varchar, not null)
 token (varchar, not null)
-checksum (Varchar, null)
 createdAt (Datetime, not null)
 capturedAt (Datetime, null)
+
+### payment_status:
+Id (Varchar, uuid, not null)
+name (Varchar, not null)
 
 ### payment_provider:
 Id (Integer, PK, not null)
