@@ -64,9 +64,32 @@ $ npm run test:cov
 ## Swager OPEN API
 You can go to Swagger API documentation with the link of format APP_HOST:APP_PORT/SWAGGER_. Example: http://localhost:3000/api
 
-## Support
+## TODO
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Need to use database for payment
+2. Need to add more tables for verifying more side effects like checking validity of payment provider or client exists or not
+3. Add test, right now the API is just fake, hard to test
+
+## Improvement
+There is some thing in API need to improve
+
+1. Based on the spec, when client come back from BestPayment app, it will make POST request to R API with this payload:
+
+```
+itemId(string: UUID)
+clientId(string: UUID)
+status(enum: ['accepted', 'declined', 'error'] | optional)
+```
+
+There are 2 problems with this payload. The first one is itemId and clientId is not a unique composite key to find the payment. There will be case that
+same client make payment for same item so in system there will be duplicate error. I suggest to change the payload like this:
+
+```
+paymentReference(string: UUID) This can be external_id or identifier from our own database. Based on this we can retreived the payment in R API
+```
+The payment reference is enough, we should not allow client post status and the R API should not trust the client, R API need to verify or get payment's status from provider
+
+2. 
 
 ## Stay in touch
 
