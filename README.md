@@ -22,6 +22,9 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+# Warning
+This repo is not ready yet, the service is not yet tested
+
 ## Description
 
 This is simple REST API to handle the payment and we implement by using [Nest](https://github.com/nestjs/nest) framework. Right now we just implemented for bestpayments provider
@@ -64,11 +67,22 @@ $ npm run test:cov
 ## Swager OPEN API
 You can go to Swagger API documentation with the link of format APP_HOST:APP_PORT/SWAGGER_. Example: http://localhost:3000/api
 
+## REST API design:
+
+POST payment/bestpayments/create
+
+POST payment/bestpayments/verify
+
+GET payment/bestpayments/callback
+
+Check the documentation in swagger to get more details
+
 ## TODO
 
 1. Need to use database for payment
 2. Need to add more tables for verifying more side effects like checking validity of payment provider or client exists or not
 3. Add test, right now the API is just fake, hard to test
+4. Need to add queue to recheck the payment status, because for some reason the webpack will lost
 
 ## Improvement
 There is some thing in API need to improve
@@ -89,7 +103,60 @@ paymentReference(string: UUID) This can be external_id or identifier from our ow
 ```
 The payment reference is enough, we should not allow client post status and the R API should not trust the client, R API need to verify or get payment's status from provider
 
-2. 
+2. When create payment there is something we need to refactor the payload, right now the payload look like this
+   
+```
+itemId(string: UUID)
+amount(float)
+currency(string: ISO 4217 three letter code, e.g. EUR)
+clientId(string: UUID)
+```
+There will be problem that client can send the amount and currency also in this payload. The payload just need to contains the itemId and clientId. Based on clientId we can retreived the
+amount and currency. There will be more step if system allow to sell in customer currency so we need one more step to convert from the current currency of item to the customer currency amount
+
+3. The controller need to check if client exist and item exist when handling
+
+## DB Schema (propose):
+### payment:
+Id (Varchar, PK, not null, uuid)
+itemId (Varchar, uuid, FK => item.id, not null)
+amount (Double, not null)
+currencyId (Int,FK => currency.id, not null)
+clientId (Varchar, uuid, FK => client.id, not null)
+paymentProviderId (Integer, FK => payment_provider.id)
+status (Int,FK => payment_status.id, not null)
+paymentReference (Varchar, not null)
+token (varchar, not null)
+checksum (Varchar, null)
+createdAt (Datetime, not null)
+capturedAt (Datetime, null)
+
+### payment_provider:
+Id (Integer, PK, not null)
+providerName (Varchar, not null)
+enabled (Boolean, not null)
+payment_status:
+Id (Integer, PK, not null)
+statusName (Varchar, not null)
+client:
+Id (Varchar, uuid, not null)
+clientName (Varchar, not null)
+enabled (Boolean, not null)
+createdAt (Datetime, not null)
+updatedAt (Datetime, null)
+
+### item:
+Id (Varchar, uuid, not null)
+itemName (Varchar, not null)
+amount (Double, not null)
+currencyId (Int,FK => currency.id, not null)
+enabled (Boolean, not null)
+createdAt (Datetime, not null)
+updatedAt (Datetime, null)
+
+### currency:
+Id (Varchar, uuid, not null)
+currencyName (Varchar, not null, ISO 4217 three letter code, e.g. EUR)
 
 ## Stay in touch
 
