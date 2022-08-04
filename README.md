@@ -134,8 +134,8 @@ createdAt (Datetime, not null)
 capturedAt (Datetime, null)
 
 ### payment_status:
-Id (Varchar, uuid, not null)
-name (Varchar, not null)
+Id (Varchar, uuid, not null)  
+name (Varchar, not null)  
 
 ### payment_provider:
 Id (Integer, PK, not null)
