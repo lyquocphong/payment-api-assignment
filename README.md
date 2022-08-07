@@ -121,48 +121,50 @@ amount and currency. There will be more step if system allow to sell in customer
 
 ## DB Schema (propose):
 ### payment:
-Id (Varchar, PK, not null, uuid)
-itemId (Varchar, uuid, FK => item.id, not null)
-amount (Double, not null)
-currencyId (Int,FK => currency.id, not null)
-clientId (Varchar, uuid, FK => client.id, not null)
-paymentProviderId (Integer, FK => payment_provider.id)
-status (Int,FK => payment_status.id, not null)
-paymentReference (Varchar, not null)
-token (varchar, not null)
-createdAt (Datetime, not null)
+Id (Varchar, PK, not null, uuid)  
+itemId (Varchar, uuid, FK => item.id, not null)  
+amount (Double, not null)  
+currencyId (Int,FK => currency.id, not null)  
+clientId (Varchar, uuid, FK => client.id, not null)  
+paymentProviderId (Integer, FK => payment_provider.id)  
+status (Int,FK => payment_status.id, not null)  
+paymentReference (Varchar, not null)  
+token (varchar, not null)  
+createdAt (Datetime, not null)  
 capturedAt (Datetime, null)
 
 ### payment_status:
-Id (Varchar, uuid, not null)
-name (Varchar, not null)
+Id (Varchar, uuid, not null)  
+name (Varchar, not null)  
 
 ### payment_provider:
-Id (Integer, PK, not null)
-providerName (Varchar, not null)
-enabled (Boolean, not null)
-payment_status:
-Id (Integer, PK, not null)
+Id (Integer, PK, not null)  
+providerName (Varchar, not null)  
+enabled (Boolean, not null)  
+
+### payment_status:  
+Id (Integer, PK, not null)  
 statusName (Varchar, not null)
-client:
-Id (Varchar, uuid, not null)
-clientName (Varchar, not null)
-enabled (Boolean, not null)
-createdAt (Datetime, not null)
-updatedAt (Datetime, null)
+
+### client:
+Id (Varchar, uuid, not null)  
+clientName (Varchar, not null)  
+enabled (Boolean, not null)  
+createdAt (Datetime, not null)  
+updatedAt (Datetime, null)  
 
 ### item:
-Id (Varchar, uuid, not null)
-itemName (Varchar, not null)
-amount (Double, not null)
-currencyId (Int,FK => currency.id, not null)
-enabled (Boolean, not null)
-createdAt (Datetime, not null)
-updatedAt (Datetime, null)
+Id (Varchar, uuid, not null)  
+itemName (Varchar, not null)  
+amount (Double, not null)  
+currencyId (Int,FK => currency.id, not null)  
+enabled (Boolean, not null)  
+createdAt (Datetime, not null)  
+updatedAt (Datetime, null)  
 
 ### currency:
-Id (Varchar, uuid, not null)
-currencyName (Varchar, not null, ISO 4217 three letter code, e.g. EUR)
+Id (Varchar, uuid, not null)  
+currencyName (Varchar, not null, ISO 4217 three letter code, e.g. EUR)  
 
 ## Stay in touch
 
