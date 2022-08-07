@@ -49,10 +49,10 @@ export class BestpaymentsController {
     @Body() body: VerifyBestPaymentClientPayloadDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<{ result: string }> {
-    // Need to get payment from payment table based on clientId and itemId
+    // TODO: Need to get payment from payment table based on clientId and itemId
     const paymentReference = '12345abc';
 
-    // Need to get token from payment table based on clientId and itemId
+    // TODO: Need to get token from payment table based on clientId and itemId
     const token = '12345bcdas';
     const result: GetBestPaymentResponse =
       await this.bestpaymentsService.getPayment(paymentReference);
@@ -86,6 +86,11 @@ export class BestpaymentsController {
       throw new BadRequestException({ description: 'Checksum not valid' });
     }
 
-    this.bestpaymentsService.capturePayment(body.paymentReference);
+    // Need to check that the payment is reserved, it mean customer has accepted, now we need to capture
+    if (body.status == PaymentStatus.Reserved) {
+      this.bestpaymentsService.capturePayment(body.paymentReference);
+    } else if (body.status == PaymentStatus.Error) {
+      // TODO: Need to store in webhook transaction or log somewhere
+    }
   }
 }

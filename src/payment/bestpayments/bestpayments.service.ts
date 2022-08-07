@@ -188,6 +188,13 @@ export class BestpaymentsService {
         return;
       }
 
+      if (
+        result.status == PaymentStatus.Ok ||
+        result.status == PaymentStatus.AlreadyCaptured
+      ) {
+        // TODO: need to update the status of payment to captured to prevent cronjob recapture it again
+      }
+
       // Need to set payment status as captured in database. Need to do later
       console.log('Captured');
     } catch (error) {
